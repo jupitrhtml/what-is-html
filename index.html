@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My webpage</title>
+        <style>
+            .index-items {
+                font-size: 18px;
+            }
+            #basic-structure-of-html-document {
+                font-size: 12px;
+            }
+            #retro-counter {
+                display: inline-flex;
+                background: rgb(255, 255, 255);
+                padding: 6px 10px;
+                border: 2px solid rgb(0, 0, 0);
+                font-family: monospace;
+            }
+
+            .digit {
+                color: rgb(0, 0, 0);
+                font-size: 2em;
+                padding: 4px 6px;
+                border-left: 1px solid rgb(0, 0, 0);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>HTML - The main building block for the web</h1>
+        <p>This is a webpage. You are probably on a browser, like chrome, firefox, or internet explorer. <br>
+        But how was this webpage made? What is HTML, and what is the history on it?</p>
+
+        <p>Read more about HTML <a href="https://en.wikipedia.org/wiki/HTML">here</a>.</p>
+
+        <h2>Index</h2>
+        <ul>
+            <li class="index-items"><a href="#what-is-html">What Is HTML?</a></li>
+            <li class="index-items"><a href="#what-html-does">What HTML Does</a></li>
+            <li class="index-items"><a href="#basic-structure-of-html-document">Basic Structure of a HTML Page</a></li>
+        </ul>
+
+        <p>
+            <img src="https://templatetoaster.com/wp-content/uploads/2021/02/place-your-logo-anywhere-with-this-html-web-page-creator.jpg" 
+            alt="A webpage building website, for HTML", width="500">
+            <br>
+            <em>Image from <a href="https://templatetoaster.com">https://templatetoaster.com</a></em>
+        </p>
+
+        <h3 id="what-is-html">What Is HTML?</h3>
+        <p>HTML stands for HyperText Markup Language. It is the standard language used to create and structure content <br>
+            on the web. HTML tells a web browser what to display and how the content is organized.</p>
+        
+        <h3 id="what-html-does">What HTML Does</h3>
+        <p>HTML structures a webpage using elements. These elements define things like headings, paragraphs, <br>
+             images, links, buttons, and forms. HTML does not handle logic or styling by itself. </p>
+        
+        <h3>Basic Structure of a HTML Page</h3>
+        <p>Every HTML document follows a basic structure.</p>
+        <p>
+            <img src="https://stuyhsdesign.wordpress.com/wp-content/uploads/2015/09/basic-structure.png" 
+        alt="Basic structure of a HTML document: html page, head, body, title, other content." 
+        width="200">
+            <br> <em id="basic-structure-of-html-document">Basic structure of an HTML document, sourced form <br>
+            <a href="https://stuyhsdesign.wordpress.com/">https://stuyhsdesign.wordpress.com</a></em>
+        </p>
+        <p>This structure helps the browser understand how to read and display the page correctly. <br>
+             Each part of the structure has a specific role, and together they form a complete webpage. <br>
+            By using this standard structure, developers create webpages that are reliable, readable, <br>
+             and compatible with the modern web.</p>
+        
+        <p><br>Thanks for reading! <br>
+            Created by Jupiter - A student in HTML, CSS, JS and Python code.</p>
+        
+        <p>Visitor count:</p>
+
+        <div id="retro-counter">
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+        </div>
+
+        
+        <script>
+        function updateCounter(value) {
+            const digits = value.toString().padStart(4, '0').split('');
+            const digitSpans = document.querySelectorAll('#retro-counter .digit');
+
+            digitSpans.forEach((span, i) => {
+                span.textContent = digits[i];
+            });
+        }
+
+        fetch("https://bmVhcmJ5Zm9sa3N3aWRlbGl.pythonanywhere.com/visit", {
+            cache: "no-store"
+        })
+        .then(res => res.json())
+        .then(data => updateCounter(data.count))
+        .catch(err => {
+            console.error(err);
+        });
+        </script>
+
+
+    </body>
+</html>
