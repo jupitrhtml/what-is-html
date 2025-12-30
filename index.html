@@ -80,7 +80,6 @@
             <span class="digit">0</span>
             <span class="digit">0</span>
         </div>
-
         
         <script>
         function updateCounter(value) {
@@ -92,17 +91,32 @@
             });
         }
 
-        fetch("https://bmVhcmJ5Zm9sa3N3aWRlbGl.pythonanywhere.com/visit", {
-            cache: "no-store"
-        })
-        .then(res => res.json())
-        .then(data => updateCounter(data.count))
-        .catch(err => {
-            console.error(err);
-        });
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        // Only fetch from server if visitor hasn't been counted yet
+        if (!getCookie("counted")) {
+            fetch("https://bmVhcmJ5Zm9sa3n3awrlbgl.pythonanywhere.com/visit", {
+                cache: "no-store"
+            })
+            .then(res => res.json())
+            .then(data => {
+                updateCounter(data.count);
+                document.cookie = "counted=1; path=/; max-age=86400"; // 1 day
+            })
+            .catch(err => console.error(err));
+        } else {
+            // Visitor already counted, optionally just fetch the count without increment
+            fetch("https://bmVhcmJ5Zm9sa3n3awrlbgl.pythonanywhere.com/visit", {
+                cache: "no-store"
+            })
+            .then(res => res.json())
+            .then(data => updateCounter(data.count))
+            .catch(err => console.error(err));
+        }
         </script>
-
-
     </body>
-
 </html>
